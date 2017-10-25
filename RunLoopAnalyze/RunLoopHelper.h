@@ -15,16 +15,12 @@
 
 + (NSString *)getCurrentRunLoopModeName;
 
-+ (NSString *)getRunLoopCurrentModeName:(CFRunLoopRef)runLoop;
-
 + (NSArray *)getCurrentRunLoopAllModes;
 
-+ (NSArray *)getRunLoopModes:(CFRunLoopRef)runLoop;
++ (CFRunLoopObserverRef)addObserverOnMode:(NSRunLoopMode)mode observerType:(NSUInteger)observerType;
 
-+ (CFRunLoopObserverRef)addObserverOnMode:(CFRunLoopMode)mode observerType:(CFOptionFlags)observerType;
++ (void)removeObserver:(CFRunLoopObserverRef)observer onMode:(NSRunLoopMode)mode;
 
-+ (void)removeObserver:(CFRunLoopObserverRef)observer onMode:(CFRunLoopMode)mode;
-
-+ (void)performBlockInRunLoop:(CFRunLoopRef)rl mode:(CFRunLoopMode)mode block:(void(^)())block;
++ (void)performBlockOnMode:(NSRunLoopMode)mode block:(void(^)())block;
 
 @end

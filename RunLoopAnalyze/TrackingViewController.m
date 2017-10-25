@@ -28,8 +28,8 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(actionBack)];
     
     //if you have added observer in 'ViewController',please remove it before push 'TrackingViewController'
-    _defaultObserver = [RunLoopHelper addObserverOnMode:kCFRunLoopDefaultMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
-    _trackingObserver = [RunLoopHelper addObserverOnMode:(__bridge CFRunLoopMode)UITrackingRunLoopMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
+    _defaultObserver = [RunLoopHelper addObserverOnMode:NSDefaultRunLoopMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
+    _trackingObserver = [RunLoopHelper addObserverOnMode:UITrackingRunLoopMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
     [self.timer fire];
@@ -51,8 +51,8 @@
     [self.timer invalidate];
     self.timer = nil;
     
-    [RunLoopHelper removeObserver:_defaultObserver onMode:kCFRunLoopDefaultMode];
-    [RunLoopHelper removeObserver:_trackingObserver onMode:(__bridge CFRunLoopMode)UITrackingRunLoopMode];
+    [RunLoopHelper removeObserver:_defaultObserver onMode:NSDefaultRunLoopMode];
+    [RunLoopHelper removeObserver:_trackingObserver onMode:UITrackingRunLoopMode];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

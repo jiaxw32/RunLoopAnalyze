@@ -51,7 +51,7 @@
     return CFBridgingRelease(modes);
 }
 
-+ (CFRunLoopObserverRef)addObserverOnMode:(CFRunLoopMode)mode observerType:(CFOptionFlags)observerType{
++ (CFRunLoopObserverRef)addObserverOnMode:(NSRunLoopMode)mode observerType:(NSUInteger)observerType{
     CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, observerType, true, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
         
         const char *mode =  [[NSRunLoop currentRunLoop].currentMode UTF8String];
@@ -80,18 +80,18 @@
                 break;
         }
     });
-    CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, mode);
+    CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, (__bridge CFRunLoopMode)mode);
     return observer;
 }
 
-+ (void)removeObserver:(CFRunLoopObserverRef)observer onMode:(CFRunLoopMode)mode{
++ (void)removeObserver:(CFRunLoopObserverRef)observer onMode:(NSRunLoopMode)mode{
     CFRunLoopRef rl = CFRunLoopGetCurrent();
-    CFRunLoopRemoveObserver(rl, observer, mode);
+    CFRunLoopRemoveObserver(rl, observer, (__bridge CFRunLoopMode)mode);
 }
 
-+ (void)performBlockInRunLoop:(CFRunLoopRef)rl mode:(CFRunLoopMode)mode block:(void(^)())block{
-    CFRunLoopPerformBlock(rl, mode, block);
++ (void)performBlockOnMode:(NSRunLoopMode)mode block:(void (^)())block{
+    CFRunLoopRef rl = CFRunLoopGetCurrent();
+    CFRunLoopPerformBlock(rl, (__bridge CFRunLoopMode)mode, block);
 }
-
 
 @end

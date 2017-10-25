@@ -380,7 +380,7 @@ static NSString *const kRLButtonCellReuseIdentifier = @"ButtonCell";
 #pragma mark - RunLoop
 
 - (void)performBlcok{
-    [RunLoopHelper performBlockInRunLoop:CFRunLoopGetCurrent() mode:kCFRunLoopDefaultMode block:^{
+    [RunLoopHelper performBlockOnMode:NSDefaultRunLoopMode block:^{
         NSLog(@"haha");
         NSLog(@"%s",__func__);
     }];
@@ -398,9 +398,9 @@ static NSString *const kRLButtonCellReuseIdentifier = @"ButtonCell";
 
 - (void)addRemoveObserver:(NSNumber *)isAdd{
     if ([isAdd boolValue]) {
-        _observer = [RunLoopHelper addObserverOnMode:kCFRunLoopDefaultMode observerType:kCFRunLoopAllActivities];
+        _observer = [RunLoopHelper addObserverOnMode:NSDefaultRunLoopMode observerType:kCFRunLoopAllActivities];
     } else {
-        [RunLoopHelper removeObserver:_observer onMode:kCFRunLoopDefaultMode];
+        [RunLoopHelper removeObserver:_observer onMode:NSDefaultRunLoopMode];
     }
 }
 
@@ -429,7 +429,7 @@ static NSString *const kRLButtonCellReuseIdentifier = @"ButtonCell";
         [RunLoopHelper logCurrentRunLoop:YES];
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         [runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];
-        [RunLoopHelper addObserverOnMode:kCFRunLoopDefaultMode observerType:kCFRunLoopAllActivities];
+        [RunLoopHelper addObserverOnMode:NSDefaultRunLoopMode observerType:kCFRunLoopAllActivities];
         [runLoop run];
     }
 }

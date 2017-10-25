@@ -29,8 +29,8 @@
     if (self == [AppDelegate class]) {
         NSLog(@"%s",__PRETTY_FUNCTION__);
         NSString *mode =@"UIInitializationRunLoopMode";
-        [RunLoopHelper addObserverOnMode:(__bridge CFRunLoopMode)(mode) observerType:kCFRunLoopEntry|kCFRunLoopExit];
-        [RunLoopHelper addObserverOnMode:kCFRunLoopDefaultMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
+        [RunLoopHelper addObserverOnMode:mode observerType:kCFRunLoopEntry|kCFRunLoopExit];
+        [RunLoopHelper addObserverOnMode:NSDefaultRunLoopMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
     }
 }
 
