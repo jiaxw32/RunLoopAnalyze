@@ -25,6 +25,14 @@
     return YES;
 }
 
++ (void)initialize{
+    if (self == [AppDelegate class]) {
+        NSLog(@"%s",__PRETTY_FUNCTION__);
+        NSString *mode =@"UIInitializationRunLoopMode";
+        [RunLoopHelper addObserverOnMode:(__bridge CFRunLoopMode)(mode) observerType:kCFRunLoopEntry|kCFRunLoopExit];
+        [RunLoopHelper addObserverOnMode:kCFRunLoopDefaultMode observerType:kCFRunLoopEntry|kCFRunLoopExit];
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

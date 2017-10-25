@@ -54,27 +54,27 @@
 + (CFRunLoopObserverRef)addObserverOnMode:(CFRunLoopMode)mode observerType:(CFOptionFlags)observerType{
     CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, observerType, true, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
         
-        NSString *mode = CFBridgingRelease(CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent()));
-//        NSRunLoopMode mode =  [NSRunLoop currentRunLoop].currentMode;
+        const char *mode =  [[NSRunLoop currentRunLoop].currentMode UTF8String];
+        const char *threadName = [[NSThread currentThread].name UTF8String];
         
         switch (activity) {
             case kCFRunLoopEntry:
-                NSLog(@"%@-%@:will enter runloop",[NSThread currentThread].name,mode);
+                printf("%s-%s:will enter runloop\n",threadName,mode);
                 break;
             case kCFRunLoopBeforeTimers:
-                NSLog(@"%@-%@:before handle timer",[NSThread currentThread].name,mode);
+                printf("%s-%s:before handle timer\n",threadName,mode);
                 break;
             case kCFRunLoopBeforeSources:
-                NSLog(@"%@-%@:before handle source",[NSThread currentThread].name,mode);
+                printf("%s-%s:before handle source\n",threadName,mode);
                 break;
             case kCFRunLoopBeforeWaiting:
-                NSLog(@"%@-%@:will be sleeping",[NSThread currentThread].name,mode);
+                printf("%s-%s:will be sleeping\n",threadName,mode);
                 break;
             case kCFRunLoopAfterWaiting:
-                NSLog(@"%@-%@:waked from sleeping",[NSThread currentThread].name,mode);
+                printf("%s-%s:waked from sleeping\n",threadName,mode);
                 break;
             case kCFRunLoopExit:
-                NSLog(@"%@-%@:exit runloop",[NSThread currentThread].name,mode);
+                printf("%s-%s:exit runloop\n",threadName,mode);
                 break;
             default:
                 break;

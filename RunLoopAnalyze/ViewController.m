@@ -60,16 +60,20 @@ static NSString *const kRLButtonCellReuseIdentifier = @"ButtonCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self performSelector:@selector(test)];
+    NSLog(@"%s——%@",__PRETTY_FUNCTION__,[NSRunLoop currentRunLoop].currentMode);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    NSLog(@"%s——%@",__PRETTY_FUNCTION__,[NSRunLoop currentRunLoop].currentMode);
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [RunLoopHelper logCurrentRunLoop:YES];
+//    [RunLoopHelper logCurrentRunLoop:YES];
+    NSLog(@"%s——%@",__PRETTY_FUNCTION__,[NSRunLoop currentRunLoop].currentMode);
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
