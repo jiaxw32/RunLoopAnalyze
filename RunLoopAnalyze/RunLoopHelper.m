@@ -51,42 +51,46 @@
     return CFBridgingRelease(modes);
 }
 
-+ (CFRunLoopObserverRef)addObserverOnMode:(NSRunLoopMode)mode observerType:(NSUInteger)observerType{
++ (id)addObserverOnMode:(NSRunLoopMode)mode observerType:(NSUInteger)observerType{
     CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, observerType, true, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
         
-        const char *mode =  [[NSRunLoop currentRunLoop].currentMode UTF8String];
-        const char *threadName = [[NSThread currentThread].name UTF8String];
+//        const char *mode =  [[NSRunLoop currentRunLoop].currentMode UTF8String];
+//        const char *threadName = [[NSThread currentThread].name UTF8String];
+        
+        NSString *mode =  [NSRunLoop currentRunLoop].currentMode;
+        NSString *threadName = [NSThread currentThread].name;
+        
         
         switch (activity) {
             case kCFRunLoopEntry:
-                printf("%s-%s:will enter runloop\n",threadName,mode);
+                NSLog(@"%@-%@:will enter runloop\n",threadName,mode);
                 break;
             case kCFRunLoopBeforeTimers:
-                printf("%s-%s:before handle timer\n",threadName,mode);
+                NSLog(@"%@-%@:before handle timer\n",threadName,mode);
                 break;
             case kCFRunLoopBeforeSources:
-                printf("%s-%s:before handle source\n",threadName,mode);
+                NSLog(@"%@-%@:before handle source\n",threadName,mode);
                 break;
             case kCFRunLoopBeforeWaiting:
-                printf("%s-%s:will be sleeping\n",threadName,mode);
+                NSLog(@"%@-%@:will be sleeping\n",threadName,mode);
                 break;
             case kCFRunLoopAfterWaiting:
-                printf("%s-%s:waked from sleeping\n",threadName,mode);
+                NSLog(@"%@-%@:waked from sleeping\n",threadName,mode);
                 break;
             case kCFRunLoopExit:
-                printf("%s-%s:exit runloop\n",threadName,mode);
+                NSLog(@"%@-%@:exit runloop\n",threadName,mode);
                 break;
             default:
                 break;
         }
     });
     CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, (__bridge CFRunLoopMode)mode);
-    return observer;
+    return CFBridgingRelease(observer);
 }
 
-+ (void)removeObserver:(CFRunLoopObserverRef)observer onMode:(NSRunLoopMode)mode{
++ (void)removeObserver:(id)observer onMode:(NSRunLoopMode)mode{
     CFRunLoopRef rl = CFRunLoopGetCurrent();
-    CFRunLoopRemoveObserver(rl, observer, (__bridge CFRunLoopMode)mode);
+    CFRunLoopRemoveObserver(rl, (__bridge CFRunLoopObserverRef)observer, (__bridge CFRunLoopMode)mode);
 }
 
 + (void)performBlockOnMode:(NSRunLoopMode)mode block:(void (^)())block{

@@ -33,7 +33,7 @@ static NSString *const kRLSwitchCellReuseIdentifier = @"SwitchCell";
 static NSString *const kRLButtonCellReuseIdentifier = @"ButtonCell";
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>{
-    CFRunLoopObserverRef _observer;
+    id _observer;
 }
 
 @property (nonatomic,strong) NSTimer *timer;

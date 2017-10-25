@@ -10,8 +10,8 @@
 #import "RunLoopHelper.h"
 
 @interface TrackingViewController ()<UITableViewDelegate,UITableViewDataSource>{
-    CFRunLoopObserverRef _defaultObserver;
-    CFRunLoopObserverRef _trackingObserver;
+    id _defaultObserver;
+    id _trackingObserver;
 }
 
 @property (nonatomic,strong) NSDate *lastDate;

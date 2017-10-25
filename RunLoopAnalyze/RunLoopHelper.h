@@ -17,9 +17,9 @@
 
 + (NSArray *)getCurrentRunLoopAllModes;
 
-+ (CFRunLoopObserverRef)addObserverOnMode:(NSRunLoopMode)mode observerType:(NSUInteger)observerType;
++ (id)addObserverOnMode:(NSRunLoopMode)mode observerType:(NSUInteger)observerType;
 
-+ (void)removeObserver:(CFRunLoopObserverRef)observer onMode:(NSRunLoopMode)mode;
++ (void)removeObserver:(id)observer onMode:(NSRunLoopMode)mode;
 
 + (void)performBlockOnMode:(NSRunLoopMode)mode block:(void(^)())block;
 
